@@ -1,6 +1,7 @@
-var express = require("express");
+var express = require('express');
+var passport = require('passport');
 
-var User = require("./models/user");
+var User = require('./models/user');
 var router = express.Router();
 
 
@@ -19,6 +20,12 @@ router.get("/", function(req, res, next) {
     res.render("index", { users: users });
   });
 });
+
+router.get('/signup', (req,res)=>{
+  res.render('signup');
+});
+
+
 
 
 module.exports = router;
