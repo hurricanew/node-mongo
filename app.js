@@ -2,15 +2,17 @@
 var express = require("express");
 var flash = require("connect-flash");
 var mongoose = require("mongoose");
+var passport = require("passport");
 var path = require("path");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
 var routes = require("./routes");
 var app = express();
-
+var setUpPassport = require("./setuppassport");
 
 mongoose.connect("mongodb://localhost:27017/test");
+setUpPassport();
 
 app.set("port", process.env.PORT || 3000);
 
@@ -31,7 +33,8 @@ app.use(session({
 }));
 
 app.use(flash());
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(routes);
 
 app.listen(app.get("port"), function() {
